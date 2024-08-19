@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="property-detail">
+    <div class="row">
+        <!-- Property Details Section -->
+        <div class="col-md-8">
+            <h2>{{ property.real_estate_app_property_title }}</h2>
+            <p>Price: <strong>KSH {{ property.real_estate_app_property_price|floatformat:2 }}</strong></p>
+            <p>Location: {{ property.real_estate_app_property_location }}</p>
+            <p>Description: {{ property.real_estate_app_property_description }}</p>
+
+            <!-- New Property Details Section -->
+            <ul class="list-group mb-4">
+                <li class="list-group-item">Bedrooms: {{ property.real_estate_app_property_bedrooms }}</li>
+                <li class="list-group-item">Bathrooms: {{ property.real_estate_app_property_bathrooms }}</li>
+                <li class="list-group-item">Square Footage: {{ property.real_estate_app_property_square_footage }} sq ft</li>
+            </ul>
+
+            <!-- Image Gallery with Lightbox -->
+            <div class="image-gallery row">
+                {% for image in property.images.all %}
+                <div class="col-md-4 mb-3">
+                    <a href="{{ image.real_estate_app_propertyimage_image.url }}" data-lightbox="property-gallery" data-title="{{ property.real_estate_app_property_title }}">
+                        <img src="{{ image.real_estate_app_propertyimage_image.url }}" alt="Property Image" class="img-fluid rounded">
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Favorite Button -->
+            <button class="favorite-btn btn btn-outline-primary mt-3" data-property-id="{{ property.real_estate_app_property_id }}">
+                {% if property in user.favorites.all %}
+                ❤️ Unfavorite
+                {% else %}
+                💙 Favorite
+                {% endif %}
+            </button>
+        </div>
+
+        <!-- Property Testimonials/Reviews Section -->
+        <div class="col-md-4">
+            <h4>User Reviews</h4>
+            <ul class="list-group">
+                {% for review in property.reviews.all %}
+                <li class="list-group-item">
+                    <strong>{{ review.real_estate_app_review_client.username }}</strong>: {{ review.real_estate_app_review_text }}
+                </li>
+                {% empty %}
+                <li class="list-group-item">No reviews yet.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <!-- Virtual Tour/Video Walkthrough -->
+    {% if property.real_estate_app_property_virtual_tour_url %}
+    <div class="virtual-tour mt-5">
+        <h3>Virtual Tour</h3>
+        <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" src="{{ property.real_estate_app_property_virtual_tour_url }}" allowfullscreen></iframe>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+{% endblock %}

@@ -1,0 +1,22 @@
+<!-- real_estate_app/templates/property_detail.html -->
+{% extends "base.html" %}
+
+{% block title %}{{ property.title }} - Mtaani.ke{% endblock %}
+
+{% block content %}
+<h2 class="mt-4">{{ property.title }}</h2>
+
+<div class="property-detail mt-4">
+    <div class="property-images mb-4">
+        {% for image in property.images.all %}
+        <img src="{{ image.url }}" alt="{{ property.title }}" class="img-fluid mb-2">
+        {% endfor %}
+    </div>
+    <div class="property-info">
+        <p><strong>Price:</strong> ${{ property.price }}</p>
+        <p><strong>Location:</strong> {{ property.location }}</p>
+        <p><strong>Description:</strong> {{ property.description }}</p>
+        <p><strong>Contact:</strong> {{ property.contact }}</p>
+    </div>
+</div>
+{% endblock %}

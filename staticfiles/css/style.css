@@ -1,0 +1,83 @@
+body {
+    background-color: #f8f9fa;
+    color: #343a40;
+    font-family: 'Roboto', sans-serif;
+}
+
+.navbar-custom {
+    background-color: #017b3f; /* Bangladesh Green */
+}
+
+.navbar-custom .navbar-nav .nav-link {
+    color: #f8f9fa;
+}
+
+.navbar-custom .navbar-nav .nav-link:hover {
+    color: #00c9a7; /* Mountain Meadow */
+}
+
+.card {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.2s;
+    margin-bottom: 1rem; /* Added margin-bottom for spacing */
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.card-img-top {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    width: 250px; /* Set width */
+    height: 167px; /* Set height */
+}
+
+.card-body {
+    background-color: #ffffff;
+    color: #343a40;
+    padding: 20px;
+}
+
+.property-thumbnail {
+    width: 100%;
+    height: auto;
+    max-height: 720px; /* Ensure the image height does not exceed */
+    object-fit: cover;
+}
+
+.btn-primary {
+    background-color: #004d40; /* Dark Green */
+    border-color: #004d40;
+}
+
+.btn-primary:hover {
+    background-color: #00695c; /* Darker shade */
+    border-color: #00695c;
+}
+
+footer {
+    background-color: #212121; /* Rich Black */
+    color: #f8f9fa;
+    padding: 20px 0;
+}
+
+footer h5 {
+    color: #00c9a7; /* Mountain Meadow */
+}
+
+footer a {
+    color: #f8f9fa;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+.filter-tab {
+    background-color: #f8f9fa; /* Anti-Flash White */
+}

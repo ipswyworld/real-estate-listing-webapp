@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Real Estate</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Real Estate</h1>
+        <form method="post" action="{% url 'filter_view' %}">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="col">
+                    <select name="category" class="form-control">
+                        <option value="">Category</option>
+                        {% for category in categories %}
+                            <option value="{{ category.id }}">{{ category.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col">
+                    <input type="text" name="location" class="form-control" placeholder="Enter a location, Province, Town or Suburb">
+                </div>
+                <div class="col">
+                    <input type="number" name="max_price" class="form-control" placeholder="Max. Price">
+                </div>
+                <div class="col">
+                    <button type="submit" class="btn btn-danger">Search</button>
+                </div>
+            </div>
+        </form>
+        <a href="{% url 'property_list' %}">Advanced Search</a>
+        <div class="row mt-4">
+            {% for property in properties %}
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="{{ property.image_url }}" class="card-img-top" alt="{{ property.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ property.title }}</h5>
+                            <p class="card-text">{{ property.description }}</p>
+                            <p class="card-text"><strong>Price:</strong> ${{ property.price }}</p>
+                            <p class="card-text"><strong>Location:</strong> {{ property.location }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
+
+<!-- templates/home.html -->
+{% extends "base.html" %}
+
+{% block title %}Home - Mtaani.ke{% endblock %}
+
+{% block content %}
+<div class="filter-tab">
+    <form method="GET" action="{% url 'filter_properties' %}">
+        <label for="sale_rent">Sale/Rent:</label>
+        <select id="sale_rent" name="sale_rent">
+            <option value="sale">Sale</option>
+            <option value="rent">Rent</option>
+        </select>
+        <button type="submit">Filter</button>
+    </form>
+</div>
+<div class="property-list">
+    {% for property in properties %}
+    <div class="property">
+        <h3>{{ property.title }}</h3>
+        <p>{{ property.description }}</p>
+        <p>{{ property.price }}</p>
+        <p>{{ property.location }}</p>
+        <form method="POST" action="{% url 'like_property' property.id %}">
+            {% csrf_token %}
+            <button type="submit" class="like-button">
+                <img src="{% static 'images/heart.png' %}" alt="Like">
+            </button>
+        </form>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

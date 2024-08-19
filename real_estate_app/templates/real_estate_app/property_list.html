@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Property Listings</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>All Properties</h1>
+        <div class="row">
+            {% for property in properties %}
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="{{ property.image_url }}" class="card-img-top" alt="{{ property.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ property.title }}</h5>
+                            <p class="card-text">{{ property.description }}</p>
+                            <p class="card-text"><strong>Price:</strong> ${{ property.price }}</p>
+                            <p class="card-text"><strong>Location:</strong> {{ property.location }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

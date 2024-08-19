@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Property List{% endblock %}
+
+{% block content %}
+<h2>Property List</h2>
+<form method="GET" action="{% url 'filter_properties' %}" class="form-inline mb-4">
+    <div class="form-row align-items-center">
+        <div class="col-auto my-1">
+            <label for="sale_rent" class="mr-2">Sale/Rent:</label>
+            <select id="sale_rent" name="sale_rent" class="form-control mr-2">
+                <option value="sale">Sale</option>
+                <option value="rent">Rent</option>
+            </select>
+        </div>
+        <div class="col-auto my-1">
+            <label for="location" class="mr-2">Location:</label>
+            <input type="text" id="location" name="location" class="form-control mr-2" placeholder="Location">
+        </div>
+        <div class="col-auto my-1">
+            <label for="min_price" class="mr-2">Min Price:</label>
+            <input type="number" id="min_price" name="min_price" class="form-control mr-2" placeholder="Min Price">
+        </div>
+        <div class="col-auto my-1">
+            <label for="max_price" class="mr-2">Max Price:</label>
+            <input type="number" id="max_price" name="max_price" class="form-control mr-2" placeholder="Max Price">
+        </div>
+        <div class="col-auto my-1">
+            <label for="property_type" class="mr-2">Property Type:</label>
+            <select id="property_type" name="property_type" class="form-control mr-2">
+                <option value="house">House</option>
+                <option value="apartment">Apartment</option>
+                <option value="land">Land</option>
+            </select>
+        </div>
+        <div class="col-auto my-1">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </div>
+</form>
+
+<div class="row">
+    {% for property in properties %}
+    <div class="col-12 mb-4">
+        <div class="card shadow-sm">
+            {% if property.real_estate_app_property_thumbnail %}
+            <img src="{{ property.real_estate_app_property_thumbnail.url }}" class="card-img-top property-thumbnail" alt="{{ property.real_estate_app_property_title }}" style="width: 250px; height: 167px;">
+            {% else %}
+            <img src="{% static 'images/default-thumbnail.jpg' %}" class="card-img-top property-thumbnail" alt="{{ property.real_estate_app_property_title }}" style="width: 250px; height: 167px;">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ property.real_estate_app_property_title }}</h5>
+                <p class="card-text"><strong>Price:</strong> KSH {{ property.real_estate_app_property_price }}</p>
+                <p class="card-text"><strong>Location:</strong> {{ property.real_estate_app_property_location }}</p>
+                <a href="{% url 'property_detail' property.real_estate_app_property_id %}" class="btn btn-primary">View Details</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>No properties found.</p>
+    {% endfor %}
+</div>
+{% endblock %}

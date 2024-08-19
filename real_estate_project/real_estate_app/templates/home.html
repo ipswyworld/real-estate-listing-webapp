@@ -1,0 +1,78 @@
+<!-- real_estate_app/templates/home.html -->
+{% extends "base.html" %}
+
+{% block title %}Home - Mtaani.ke{% endblock %}
+
+{% block content %}
+<h2 class="mt-4">Welcome to Mtaani.ke</h2>
+
+<div class="filter-tab mt-4 p-3 rounded shadow-sm">
+    <form method="GET" action="{% url 'filter_properties' %}" class="form-inline">
+        <div class="form-row align-items-center">
+            <div class="col-auto my-1">
+                <label for="sale_rent" class="mr-2">Sale/Rent:</label>
+                <select id="sale_rent" name="sale_rent" class="form-control mr-2">
+                    <option value="sale">Sale</option>
+                    <option value="rent">Rent</option>
+                </select>
+            </div>
+            <div class="col-auto my-1">
+                <label for="location" class="mr-2">Location:</label>
+                <input type="text" id="location" name="location" class="form-control mr-2" placeholder="Location">
+            </div>
+            <div class="col-auto my-1">
+                <label for="min_price" class="mr-2">Min Price:</label>
+                <input type="number" id="min_price" name="min_price" class="form-control mr-2" placeholder="Min Price">
+            </div>
+            <div class="col-auto my-1">
+                <label for="max_price" class="mr-2">Max Price:</label>
+                <input type="number" id="max_price" name="max_price" class="form-control mr-2" placeholder="Max Price">
+            </div>
+            <div class="col-auto my-1">
+                <label for="property_type" class="mr-2">Property Type:</label>
+                <select id="property_type" name="property_type" class="form-control mr-2">
+                    <option value="house">House</option>
+                    <option value="apartment">Apartment</option>
+                    <option value="land">Land</option>
+                </select>
+            </div>
+            <div class="col-auto my-1">
+                <button type="submit" class="btn btn-primary">Filter</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="favorites mt-4">
+    <h4>Favorites</h4>
+    <div class="favorite-list d-flex">
+        {% for favorite in favorites %}
+        <div class="favorite-item mr-3">
+            <img src="{{ favorite.property.thumbnail.url }}" alt="{{ favorite.property.title }}" class="img-thumbnail">
+            <div>{{ favorite.property.title }}</div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="new-properties mt-4">
+    <h4>New Properties</h4>
+    <div class="new-property-list">
+        {% for property in new_properties %}
+        <div class="new-property-item row mb-3">
+            <div class="col-md-3">
+                <img src="{{ property.thumbnail.url }}" alt="{{ property.title }}" class="img-thumbnail" style="width: 250px; height: 167px;">
+            </div>
+            <div class="col-md-9">
+                <h5>{{ property.title }}</h5>
+                <p>{{ property.description }}</p>
+                <p><strong>Price:</strong> ${{ property.price }}</p>
+                <p><strong>Location:</strong> {{ property.location }}</p>
+                <a href="{% url 'property_detail' property.id %}" class="btn btn-primary">View Details</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <a href="{% url 'property_list' %}" class="btn btn-primary mt-4">More</a>
+</div>
+{% endblock %}

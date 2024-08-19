@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Request Property{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Request Property</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary mt-3">Request Property</button>
+    </form>
+</div>
+{% endblock %}

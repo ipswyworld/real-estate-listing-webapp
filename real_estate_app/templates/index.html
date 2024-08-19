@@ -1,0 +1,10 @@
+<!-- In your template file, e.g., index.html -->
+
+{% for property in properties %}
+    <div class="property">
+        <img src="{{ property.thumbnail.url }}" alt="{{ property.title }}">
+        <h3>{{ property.title }}</h3>
+        <p>{{ property.location }}</p>
+        <p>${{ property.price }}</p>
+    </div>
+{% endfor %}

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reports</title>
+</head>
+<body>
+    <h1>System Reports</h1>
+    <ul>
+        {% for report in reports %}
+        <li>{{ report.real_estate_app_report_name }} - {{ report.real_estate_app_report_created_at }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
